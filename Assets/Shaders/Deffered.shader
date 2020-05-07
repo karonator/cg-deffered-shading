@@ -23,10 +23,10 @@
 			float3 screenToWorld(float2 uv) {
 				float depth = tex2D(_CameraDepthTexture, uv).x;
 
-				float4 clipSpacePosition = float4(uv * 2.0 - 1.0, depth, 1.0) * LinearEyeDepth(depth);
-				float3 worldPosition = mul(clipToWorld, clipSpacePosition).xyz;
+				float4 clipSpacePosition = float4(uv * 2.0 - 1.0, depth, 1.0);
+				float4 worldPosition = mul(clipToWorld, clipSpacePosition);
 			   
-				return worldPosition;
+				return worldPosition.xyz / worldPosition.w;
 			}
 
 			float4 frag(v2f_img i): COLOR {
